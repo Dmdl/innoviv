@@ -24,6 +24,7 @@
         <java.version>1.8</java.version>
 
         <startbootstrap.version>1.0.2</startbootstrap.version>
+        <guava.version>23.2-jre</guava.version>
 
         <!--Plugin versions -->
         <maven-properties-plugin.version>1.0.0</maven-properties-plugin.version>
@@ -78,6 +79,12 @@
             <groupId>org.thymeleaf.extras</groupId>
             <artifactId>thymeleaf-extras-springsecurity4</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>
