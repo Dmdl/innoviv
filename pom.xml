@@ -146,7 +146,7 @@
                                     <name>org.jooq.util.mysql.MySQLDatabase</name>
                                     <includes>.*</includes>
                                     <excludes></excludes>
-                                    <inputSchema>mas</inputSchema>
+                                    <inputSchema>innovivone</inputSchema>
                                 </database>
                                 <target>
                                     <packageName>lk.innoviv.mas.persistence.schema</packageName>

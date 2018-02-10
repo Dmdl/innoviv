@@ -12,7 +12,6 @@ import org.jooq.DSLContext;
 import org.jooq.Record;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -37,11 +36,11 @@ public class UserRepository {
     }
 
     public User getUser(String username) {
-        Record record = fetchUser(USERS.USER_NAME.eq(username));
+        Record record = fetchUser(USERS.USERNAME.eq(username));
         if (record == null) {
             throw new UnknownIdException(username, "Could not find user.");
         }
-        UserGroup userGroup = getUserGroup(record.get(USERS.USERGROUPID).longValue());
+        UserGroup userGroup = getUserGroup(record.get(USERS.USERGROUP_USERGROUPID).longValue());
         User.Builder user = toBuilder(record, userGroup);
         return user.build();
     }
@@ -71,7 +70,7 @@ public class UserRepository {
                 .from(USERGROUP)
                 .join(USERGROUPAUTHORITY)
                 .on(USERGROUPAUTHORITY.USERGROUPID.eq(USERGROUP.USERGROUPID))
-                .and(USERGROUP.USERGROUPID.eq(id.intValue()))
+                .and(USERGROUP.USERGROUPID.eq(id))
                 .fetch()
                 .map(record -> {
                     Security.Authority authority = Security.Authority.valueOf(record.get(USERGROUPAUTHORITY.AUTHORITY));
@@ -92,8 +91,8 @@ public class UserRepository {
 
         Timestamp modified = record.get(USERS.MODIFIEDTIMESTAMP);
         return User.builder()
-                .withId(record.get(USERS.USER_ID).longValue())
-                .withUsername(record.get(USERS.USER_NAME))
+                .withId(record.get(USERS.USERID))
+                .withUsername(record.get(USERS.USERNAME))
                 .withPassword(record.get(USERS.PASSWORD))
                 .withIsEnabled(record.get(USERS.ISENABLED))
                 .withCreatedTimestamp(record.get(USERS.CREATEDTIMESTAMP).toInstant())

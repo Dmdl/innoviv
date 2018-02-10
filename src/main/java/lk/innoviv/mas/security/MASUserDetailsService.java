@@ -32,18 +32,17 @@ public class MASUserDetailsService implements UserDetailsService {
     }
 
     private UserDetails getRoleBasedDetails(User user) {
-//        UserDetails details;
-//        if (Security.isBEUser(user)) {
-//            //BEUser beUser = patientRepository.getPatient(user);
-//            //details = new MASUserDetails(beUser);
-//            details = null;
-//        } else if (Security.isAdmin(user)) {
-//            Admin admin = new Admin(user);
-//            details = new MASUserDetails(admin);
-//        } else {
-//            details = new MASUserDetails(user);
-//        }
-//        return details;
-        return new MASUserDetails(user);
+        UserDetails details;
+        if (Security.isBEUser(user)) {
+            //BEUser beUser = patientRepository.getPatient(user);
+            //details = new MASUserDetails(beUser);
+            details = null;
+        } else if (Security.isAdmin(user)) {
+            Admin admin = new Admin(user);
+            details = new MASUserDetails(admin);
+        } else {
+            details = new MASUserDetails(user);
+        }
+        return details;
     }
 }
