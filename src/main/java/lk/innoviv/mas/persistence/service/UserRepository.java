@@ -40,7 +40,7 @@ public class UserRepository {
         if (record == null) {
             throw new UnknownIdException(username, "Could not find user.");
         }
-        UserGroup userGroup = getUserGroup(record.get(USERS.USERGROUP_USERGROUPID).longValue());
+        UserGroup userGroup = getUserGroup(record.get(USERS.USERGROUP_USERGROUPID));
         User.Builder user = toBuilder(record, userGroup);
         return user.build();
     }
